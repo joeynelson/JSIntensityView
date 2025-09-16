@@ -38,7 +38,9 @@
             label4 = new Label();
             textBoxProfileCount = new TextBox();
             buttonStartScanning = new Button();
+            buttonSavePng = new Button();
             IntensityImage = new PictureBox();
+            button1 = new Button();
             flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)IntensityImage).BeginInit();
             SuspendLayout();
@@ -54,6 +56,7 @@
             flowLayoutPanel1.Controls.Add(label4);
             flowLayoutPanel1.Controls.Add(textBoxProfileCount);
             flowLayoutPanel1.Controls.Add(buttonStartScanning);
+            flowLayoutPanel1.Controls.Add(buttonSavePng);
             flowLayoutPanel1.Dock = DockStyle.Top;
             flowLayoutPanel1.Location = new Point(0, 0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -139,20 +142,41 @@
             buttonStartScanning.UseVisualStyleBackColor = true;
             buttonStartScanning.Click += buttonStartScan_Click;
             // 
+            // buttonSavePng
+            // 
+            buttonSavePng.Enabled = false;
+            buttonSavePng.Location = new Point(1336, 3);
+            buttonSavePng.Name = "buttonSavePng";
+            buttonSavePng.Size = new Size(112, 34);
+            buttonSavePng.TabIndex = 9;
+            buttonSavePng.Text = "Save PNG";
+            buttonSavePng.UseVisualStyleBackColor = true;
+            buttonSavePng.Click += buttonSavePng_Click;
+            // 
             // IntensityImage
             // 
             IntensityImage.Dock = DockStyle.Bottom;
-            IntensityImage.Location = new Point(0, 43);
+            IntensityImage.Location = new Point(0, 201);
             IntensityImage.Name = "IntensityImage";
-            IntensityImage.Size = new Size(1745, 986);
+            IntensityImage.Size = new Size(1745, 1000);
             IntensityImage.TabIndex = 1;
             IntensityImage.TabStop = false;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(220, 166);
+            button1.Name = "button1";
+            button1.Size = new Size(8, 8);
+            button1.TabIndex = 2;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1745, 1029);
+            ClientSize = new Size(1745, 1201);
+            Controls.Add(button1);
             Controls.Add(IntensityImage);
             Controls.Add(flowLayoutPanel1);
             Name = "Form1";
@@ -176,5 +200,7 @@
         private PictureBox IntensityImage;
         private Label label4;
         private TextBox textBoxProfileCount;
+        private Button buttonSavePng;
+        private Button button1;
     }
 }

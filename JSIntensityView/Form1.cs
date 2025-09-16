@@ -14,10 +14,11 @@ namespace JSIntensityView
 
         private void buttonStartScan_Click(object sender, EventArgs e)
         {
-            var profiles = RunScanning(uint.Parse(textBoxSerialNumber.Text), uint.Parse(textBoxScanPeriod.Text), 
+            var profiles = RunScanning(uint.Parse(textBoxSerialNumber.Text), uint.Parse(textBoxScanPeriod.Text),
                 uint.Parse(textBoxLaserOn.Text), uint.Parse(textBoxProfileCount.Text));
             mImage = MakeIntensityImage(profiles);
             IntensityImage.Image = mImage;
+            buttonSavePng.Enabled = true;
         }
 
         private Bitmap MakeIntensityImage(List<IProfile> profiles)
@@ -31,7 +32,7 @@ namespace JSIntensityView
             for (int i = 0; i < profiles.Count; i++)
             {
                 var profile = profiles[i];
-                for(int j = 0; j < profile.RawPoints.Length; j++)
+                for (int j = 0; j < profile.RawPoints.Length; j++)
                 {
                     var value = (byte)profile.RawPoints[j].Brightness;
 
@@ -63,7 +64,7 @@ namespace JSIntensityView
             var sh = ss.CreateScanHead(serial, 0);
             ss.Connect(TimeSpan.FromSeconds(1));
             var configuration = new ScanHeadConfiguration();
-            configuration.SetLaserOnTime(laserOn,laserOn,laserOn);
+            configuration.SetLaserOnTime(laserOn, laserOn, laserOn);
             BrightnessCorrection bc = sh.CreateBrightnessCorrection();
             bc.Offset = 0;
             for (int i = 0; i < bc.Count; i++)
@@ -78,7 +79,7 @@ namespace JSIntensityView
             period = Math.Max(minPeriod, period);
             ss.StartScanning(period, DataFormat.XYBrightnessFull);
             List<IProfile> profiles = new List<IProfile>();
-            do 
+            do
             {
                 var profile = sh.TakeNextProfile();
                 profiles.Add(profile);
@@ -86,6 +87,17 @@ namespace JSIntensityView
             ss.StopScanning();
             ss.Disconnect();
             return profiles;
+        }
+
+        
+        private void buttonSavePng_Click(object sender, EventArgs e)
+        {
+            buttonSavePng.Enabled = false;
+            var fileName = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+            fileName = Path.ChangeExtension(fileName,"png");
+
+            mImage.Save(fileName, ImageFormat.Png);
+
 
         }
     }
